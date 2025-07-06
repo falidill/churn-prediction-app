@@ -5,14 +5,18 @@ class PDF(FPDF):
         self.set_font("DejaVu", size=16)
         self.cell(0, 10, "Churn Risk Report", ln=True, align="C")
         self.ln(10)
-
+        
+        
 def generate_churn_report(customer_data, churn_prob, risk_level, top_features, persona):
-    pdf = PDF()
-    pdf.add_page()
-
-    # Add Unicode font
+    pdf = FPDF()
+    
+    # ✅ Register the font FIRST
     pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
-    pdf.set_font("DejaVu", size=12)
+    pdf.set_font("DejaVu", size=16)
+
+    pdf.add_page()
+    ...
+       
 
     # Add prediction details
     pdf.cell(0, 10, f"Churn Probability: {round(churn_prob * 100, 2)}%", ln=True)
