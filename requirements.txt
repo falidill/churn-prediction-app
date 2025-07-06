@@ -1,8 +1,7 @@
 streamlit
-xgboost
+joblib
 scikit-learn
 pandas
-numpy
-joblib
 fpdf
-
+numpy
+xgboost
