@@ -51,7 +51,6 @@ bash
 Copy
 Edit
 streamlit run churn_assistant_app.py
----
 
 ## ⚙️ How to Run Locally
 
@@ -59,3 +58,6 @@ streamlit run churn_assistant_app.py
    ```bash
    git clone https://github.com/fali/churn-prediction-app.git
    cd churn-prediction-app
+
+📬 Feedback
+Feel free to open an issue or reach out on LinkedIn!
