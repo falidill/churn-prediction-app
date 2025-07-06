@@ -38,11 +38,24 @@ This Streamlit web app predicts the probability that a customer will churn based
 | `feature_columns.pkl` | List of features in correct order used for training            |
 | `requirements.txt`    | Python dependencies for Streamlit Cloud deployment             |
 
+
+Install dependencies:
+
+bash
+Copy
+Edit
+pip install -r requirements.txt
+Run the app:
+
+bash
+Copy
+Edit
+streamlit run churn_assistant_app.py
 ---
 
 ## ⚙️ How to Run Locally
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/churn-prediction-app.git
+   git clone https://github.com/fali/churn-prediction-app.git
    cd churn-prediction-app
