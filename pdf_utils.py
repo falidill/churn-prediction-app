@@ -1,45 +1,42 @@
 from fpdf import FPDF
 
-class PDF(FPDF):
-    def header(self):
-        self.set_font("Arial", "B", 16)
-        self.cell(0, 10, "Customer Churn Risk Report", ln=True, align="C")
-        self.ln(10)
-
-    def section_title(self, title):
-        self.set_font("Arial", "B", 12)
-        self.set_text_color(0)
-        self.cell(0, 10, title, ln=True)
-        self.ln(4)
-
-    def section_body(self, body):
-        self.set_font("Arial", "", 11)
-        self.multi_cell(0, 8, body)
-        self.ln()
-
+# --- Generate PDF Report Function ---
 def generate_churn_report(customer_data, churn_prob, risk_level, top_features, persona):
-    pdf = PDF()
+    pdf = FPDF()
     pdf.add_page()
 
-    # --- Customer Info ---
-    pdf.section_title("Customer Overview")
+    # Title
+    pdf.set_font("Arial", 'B', 16)
+    pdf.cell(0, 10, "Customer Churn Report", ln=True, align='C')
+
+    pdf.ln(10)
+    pdf.set_font("Arial", 'B', 12)
+    pdf.cell(0, 10, "Customer Information:", ln=True)
+    pdf.set_font("Arial", size=11)
     for key, value in customer_data.items():
-        pdf.section_body(f"{key}: {value}")
+        pdf.cell(0, 10, f"{key}: {value}", ln=True)
 
-    # --- Churn Risk ---
-    pdf.section_title("Churn Risk Prediction")
-    pdf.section_body(f"Estimated Probability of Churn: {round(churn_prob * 100, 2)}%")
-    pdf.section_body(f"Risk Level: {risk_level}")
+    pdf.ln(5)
+    pdf.set_font("Arial", 'B', 12)
+    pdf.cell(0, 10, "Prediction Summary:", ln=True)
+    pdf.set_font("Arial", size=11)
+    churn_percent = round(churn_prob * 100, 2)
+    risk_level_clean = risk_level.replace("🔴", "High").replace("🟡", "Medium").replace("🟢", "Low")
+    pdf.cell(0, 10, f"Predicted Churn Probability: {churn_percent}%", ln=True)
+    pdf.cell(0, 10, f"Risk Level: {risk_level_clean}", ln=True)
 
-    # --- Top Features ---
-    pdf.section_title("Key Factors Influencing Risk")
-    for feature in top_features:
-        pdf.section_body(f"- {feature}")
+    pdf.ln(5)
+    pdf.set_font("Arial", 'B', 12)
+    pdf.cell(0, 10, "Top Influencing Factors:", ln=True)
+    pdf.set_font("Arial", size=11)
+    for feat in top_features:
+        pdf.cell(0, 10, f"- {feat}", ln=True)
 
-    # --- Persona ---
-    pdf.section_title("Customer Persona")
-    pdf.section_body(f"Persona: {persona['name']}")
-    pdf.section_body(f"Description: {persona['description']}")
+    pdf.ln(5)
+    pdf.set_font("Arial", 'B', 12)
+    pdf.cell(0, 10, "Customer Persona:", ln=True)
+    pdf.set_font("Arial", size=11)
+    pdf.multi_cell(0, 10, f"{persona['name']}: {persona['description']}")
 
-    # --- Save File ---
+    # Save the report
     pdf.output("churn_report.pdf")
